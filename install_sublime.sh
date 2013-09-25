@@ -3,7 +3,7 @@
 #S=install_sublime.sh;curl -L goo.gl/9fzkCo>$S;chmod u+x $S;./$S
 
 README_MSG="This directory is used by the Sublime install script. You can delete this when it's finished installing."
-WORK_DIR='sublime_install'
+WORK_DIR='install_sublime_tmp'
 SUBL_TAR_URL='http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20x64.tar.bz2'
 SUBL_TAR_NAME='Sublime Text 2.0.2 x64.tar.bz2'
 SUBL_DIR='Sublime Text 2'
