@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#S=install_sublime.sh;curl -L 'goo.gl/WjyeOh'>$S;chmod u+x $S;./$S
+#S=install_sublime.sh;curl -L goo.gl/9fzkCo>$S;chmod u+x $S;./$S
 
 README_MSG="This directory is used by the Sublime install script. You can delete this when it's finished installing."
 WORK_DIR='sublime_install'
@@ -64,7 +64,7 @@ echo -e "$README_MSG">"README"
 echo -en 'Removing possible old installations... '
 rm -rf "$SUBL_TAR_NAME" "$SUBL_DIR" "$DESKTOP_FILE"
 if [ -e "$INSTALL_DIR" ]; then
-    rm -rf "$INSTALL_DIR"
+	rm -rf "$INSTALL_DIR"
 	echo -e
 	echo -en "Sublime Text 2 uninstalled.\nPress [ctrl-C] to stop here, [enter] to install."
 	read
