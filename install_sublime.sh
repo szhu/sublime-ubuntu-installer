@@ -12,8 +12,9 @@ INSTALL_DIR=~/'.local/share/sublime-text-2'
 APPS_DIR=~/'.local/share/applications'
 
 PROMPT_INSTALL_BASHRC="Set the 'subl' command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands! [y/n] "
-BASHRC_INSTALLED_MSG="entry already in ~/.bashrc."
+BASHRC_NONEED_MSG="entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
+BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: source ~/.bashrc"
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the default editor when you double-click on a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2. [y/n] "
 
@@ -88,7 +89,7 @@ IS_BASHRC_INSTALLED=
 if [ -e ~/.bashrc ]; then
 	if [ -n "`grep "$BASHRC" ~/.bashrc`" ]; then
 		IS_BASHRC_INSTALLED=true
-		echo -e "$BASHRC_INSTALLED_MSG"
+		echo -e "$BASHRC_NONEED_MSG"
 	fi
 fi
 if [ -z $IS_BASHRC_INSTALLED ]; then
@@ -102,8 +103,9 @@ if [ -z $IS_BASHRC_INSTALLED ]; then
 		fi
 	done
 	if [ "$input" = "y" ]; then
-		echo -e >> ~/.bashrc
-		echo -e "$BASHRC" >> ~/.bashrc
+		echo >> ~/.bashrc
+		echo "$BASHRC" >> ~/.bashrc
+		echo -e "$BASHRC_INSTALL_MSG"
 	fi
 fi
 
@@ -150,5 +152,5 @@ cd ..
 rm -rf "$WORK_DIR"
 
 echo -e
-echo -e 'All done. You can run this installer again to reinstall or uninstall.\nBye!'
+echo -e "All done. You can run this installer again ($0) to reinstall or uninstall.\nBye!"
 read
