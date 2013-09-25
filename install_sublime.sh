@@ -152,5 +152,5 @@ cd ..
 rm -rf "$WORK_DIR"
 
 echo -e
-echo -e "All done. You can run this installer again ($0) to reinstall or uninstall.\nBye!"
+echo -e "All done. You can run this installer again (./$0)\nto reinstall or uninstall.\nBye!"
 read
