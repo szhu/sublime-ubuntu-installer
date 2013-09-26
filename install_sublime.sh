@@ -57,6 +57,12 @@ set -e
 # set -x
 
 echo -e 'Preparing to install Sublime Text 2...'
+
+if [ -z which xdg-open ]; then
+	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at an Ubuntu machine (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before installing. If you're sshing, try:\n ssh `whoami`@hive10.cs.berkeley.edu"
+	exit 1
+fi
+
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 mkdir -p "$APPS_DIR"
@@ -133,7 +139,7 @@ fi
 
 echo -e 'Sublime Text 2 installed!'
 
-if [ -n "$DISPLAY" ]; then
+if [ -z disabled"$DISPLAY" ]; then
 	if [ -n "`which nautilus`" ]; then	
 		echo -e
 		echo -e "$ICON_MSG"
