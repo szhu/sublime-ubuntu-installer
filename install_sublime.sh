@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#S=install_sublime.sh;curl -L goo.gl/9fzkCo>$S;chmod u+x $S;./$S
+#S=install_sublime.sh;curl -Lk goo.gl/9fzkCo>$S;chmod u+x $S;./$S
 
 README_MSG="This directory is used by the Sublime install script. You can delete this when it's finished installing."
 WORK_DIR='install_sublime_tmp'
@@ -76,7 +76,7 @@ fi
 echo -e 'Downloading Sublime Text 2...'
 curl -L "$SUBL_TAR_URL" > "$SUBL_TAR_NAME"
 echo -e 'Decompressing...'
-tar -xjf "$SUBL_TAR_NAME"
+tar -x --bzip2 -f "$SUBL_TAR_NAME"
 echo -e 'Moving files into place...'
 cp -r "$SUBL_DIR" "$INSTALL_DIR"
 echo -e 'Installing launcher shortcut icon...'
