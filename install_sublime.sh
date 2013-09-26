@@ -53,17 +53,19 @@ EOF
 )
 
 
-echo -e 'Preparing to install Sublime Text 2...'
-
 lsb_release 2> /dev/null
 if [[ $? -ne 0 ]]; then
 	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at an Ubuntu machine (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before installing. If you're sshing, try:\n ssh `whoami`@hive10.cs.berkeley.edu"
 	exit 1
 fi
 
+echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run Sublime with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
+read
+
 set -e
 # set -x
 
+echo -e 'Preparing to install Sublime Text 2...'
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 mkdir -p "$APPS_DIR"
