@@ -76,7 +76,7 @@ fi
 echo -e 'Downloading Sublime Text 2...'
 curl -L "$SUBL_TAR_URL" > "$SUBL_TAR_NAME"
 echo -e 'Decompressing...'
-tar -x --bzip2 -f "$SUBL_TAR_NAME"
+tar -xf "$SUBL_TAR_NAME" --bzip2
 echo -e 'Moving files into place...'
 cp -r "$SUBL_DIR" "$INSTALL_DIR"
 echo -e 'Installing launcher shortcut icon...'
