@@ -14,7 +14,7 @@ APPS_DIR=~/'.local/share/applications'
 PROMPT_INSTALL_BASHRC="Set the 'subl' command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands! [y/n] "
 BASHRC_NONEED_MSG="entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
-BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: source ~/.bashrc"
+BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n source ~/.bashrc"
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the default editor when you double-click on a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2. [y/n] "
 
