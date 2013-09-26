@@ -59,7 +59,7 @@ if [[ $? -ne 0 ]]; then
 	exit 1
 fi
 
-echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run Sublime with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
+echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
 read
 
 set -e
@@ -142,6 +142,10 @@ fi
 
 echo -e 'Sublime Text 2 installed!'
 
+echo -e 'Cleaning up...'
+cd ..
+rm -rf "$WORK_DIR"
+
 if [ -z disabled"$DISPLAY" ]; then
 	if [ -n "`which nautilus`" ]; then	
 		echo -e
@@ -155,10 +159,6 @@ else
 	echo -e "$ICON_MSG"
 	echo -e
 fi
-
-echo -e 'Cleaning up...'
-cd ..
-rm -rf "$WORK_DIR"
 
 echo -e
 echo -e "All done. You can run this installer again ($0)\nto reinstall or uninstall.\nBye!"
