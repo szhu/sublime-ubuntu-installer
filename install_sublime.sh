@@ -53,15 +53,16 @@ EOF
 )
 
 
-set -e
-# set -x
-
 echo -e 'Preparing to install Sublime Text 2...'
 
-if [ -z `which xdg-open` ]; then
+lsb_release 2> /dev/null
+if [[ $? -ne 0 ]]; then
 	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at an Ubuntu machine (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before installing. If you're sshing, try:\n ssh `whoami`@hive10.cs.berkeley.edu"
 	exit 1
 fi
+
+set -e
+# set -x
 
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
