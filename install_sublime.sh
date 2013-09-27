@@ -182,5 +182,5 @@ else
 	echo
 fi
 
-echo -e "All done. You can run this installer again ($0)\nto reinstall or uninstall.\nBye!"
+echo -e "All done. You can run this installer again ($0)\nto reinstall or uninstall. Have fun with Sublime!"
 read
