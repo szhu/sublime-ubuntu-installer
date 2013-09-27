@@ -59,7 +59,7 @@ if [[ $? -ne 0 ]]; then
 	exit 1
 fi
 
-echo
+echo; echo
 echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
 read
 
