@@ -143,7 +143,7 @@ do
 	fi
 done
 if [ -z $IS_DEFAULT_MIMEAPP ]; then
-	echo -e 'no need; already default app.'
+	echo -e 'already default app.'
 else
 	echo; echo
 	loop=true
