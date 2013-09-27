@@ -73,7 +73,7 @@ fi
 echo
 echo -e "${smso}                  SO I HEARD YOU WANT TO INSTALL SUBLIME TEXT                  ${rmso}"
 echo
-echo -e "This script will download ${smul}Sublime Text 2${rmul} and install it into your user\ndirectory at ~/${INSTALL_DIR_RELATIVE}.\n\nSublime will be added to the Ubuntu Unity Dash (apps button/\"start menu\" on\nthe top-left) and optionally can be run with the ${smul}subl${rmul} command.\n\nSee ${smul}interestinglythere.com/berkeley/sublime${rmul} for more details.\n$PROMPT_CONTINUE"
+echo -e "This script will download ${smul}Sublime Text 2.0.2${rmul} and install it into your user\ndirectory at ~/${INSTALL_DIR_RELATIVE}.\n\nSublime will be added to the Ubuntu Unity Dash (apps button/\"start menu\" on\nthe top-left) and optionally can be run with the ${smul}subl${rmul} command.\n\nSee ${smul}interestinglythere.com/berkeley/sublime${rmul} for more details.\n$PROMPT_CONTINUE"
 read
 
 set -e
