@@ -2,24 +2,34 @@
 
 #S=install_sublime.sh;curl -Lk goo.gl/9fzkCo>$S;chmod u+x $S;./$S
 
+smso=`tput smso`
+rmso=`tput rmso`
+smul=`tput smul`
+rmul=`tput rmul`
+
 README_MSG="This directory is used by the Sublime install script. You can delete this when it's finished installing."
 WORK_DIR='install_sublime_tmp'
 SUBL_TAR_URL='http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20x64.tar.bz2'
 SUBL_TAR_NAME='Sublime Text 2.0.2 x64.tar.bz2'
 SUBL_DIR='Sublime Text 2'
 
-INSTALL_DIR=~/'.local/share/sublime-text-2'
+INSTALL_DIR_RELATIVE='.local/share/sublime-text-2'
+INSTALL_DIR=~/INSTALL_DIR_RELATIVE
 APPS_DIR=~/'.local/share/applications'
 
-PROMPT_INSTALL_BASHRC="Set the 'subl' command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands! [y/n] "
-BASHRC_NONEED_MSG="entry already in ~/.bashrc."
+PROMPT_INSTALL_BASHRC="Set the ${smul}subl${rmul} command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands!${PROMPT_YN}"
+BASHRC_NONEED_MSG="no need; entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
-BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n  source ~/.bashrc"
+BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n  source ~/.bashrc"
 
-PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the default editor when you double-click on a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2. [y/n] "
+PROMPT_CONTINUE="Press ${smso}[enter]${rmso} to continue, ${smso}[ctrl-C]${rmso} to exit."
+PROMPT_YN="  ${smso}[y/n]${rmso} "
+
+PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the ${smul}default editor${rmul} when you double-click a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2.${PROMPT_YN}"
+MIME_TYPES="application/x-perl text/plain text/x-c++ text/x-chdr text/x-csrc text/x-dtd text/x-java text/mathml text/x-python text/x-sql"
 
 ICON_MSG='An app icon has been installed to the Unity Dash (the "start menu" apps list).\nYou can drag this to the Unity Launcher (dock/taskbar).'
-PROMPT_SHOW_ICON="Press [enter] to show this icon."
+PROMPT_SHOW_ICON="Press ${smso}[enter]${rmso} to show this icon."
 DESKTOP_FILENAME="sublime-text-2.desktop"
 DESKTOP_FILE="$APPS_DIR/$DESKTOP_FILENAME"
 DESKTOP=$( cat <<EOF
@@ -61,13 +71,13 @@ if [[ $? -ne 0 ]]; then
 fi
 
 echo
-echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
+echo -e "This script will download ${smul}Sublime Text 2${rmul} and install it into your user\ndirectory at ~/${INSTALL_DIR_RELATIVE}.\n\nSublime will be added to the Ubuntu Unity Dash (apps button/\"start menu\" on\nthe top-left) and optionally can be run with the ${smul}subl${rmul} command.\n\nSee ${smul}interestinglythere.com/berkeley/sublime${rmul} for more details.\n$PROMPT_CONTINUE"
 read
 
 set -e
 # set -x
 
-echo -e 'Preparing to install Sublime Text 2...'
+echo -e "Preparing to install Sublime Text 2..."
 mkdir -p "$WORK_DIR"
 cd "$WORK_DIR"
 mkdir -p "$APPS_DIR"
@@ -77,26 +87,28 @@ echo -en 'Removing possible old installations... '
 rm -rf "$SUBL_TAR_NAME" "$SUBL_DIR" "$DESKTOP_FILE"
 if [ -e "$INSTALL_DIR" ]; then
 	rm -rf "$INSTALL_DIR"
-	echo -e
-	echo -en "Sublime Text 2 uninstalled.\nPress [ctrl-C] to stop here, [enter] to install."
+	echo -e "old version of Sublime Text uninstalled.\n$PROMPT_CONTINUE"
 	read
 else
-	echo -e 'no old installation exists.'
+	echo -e "no old installation exists."
 fi
 
-echo -e 'Downloading Sublime Text 2...'
+echo -e "Downloading Sublime Text 2..."
 curl -L "$SUBL_TAR_URL" > "$SUBL_TAR_NAME"
-echo -e 'Decompressing...'
+echo -e "Downloaded."
+echo -en "Decompressing... "
 tar -xf "$SUBL_TAR_NAME" --bzip2
-echo -e 'Moving files into place...'
+echo -e "done."
+echo -en "Moving files into place... "
+echo -e "done."
 cp -r "$SUBL_DIR" "$INSTALL_DIR"
-echo -e 'Installing launcher shortcut icon...'
+echo -en "Installing launcher shortcut icon... "
 echo -e "$DESKTOP" | sed "s,~,$HOME,g" > "$DESKTOP_FILE"
 chmod u+x "$DESKTOP_FILE"
+echo -e "done."
 
-
-echo -en "Installing 'subl' command... "
-IS_BASHRC_INSTALLED=
+echo -en "Installing ${smul}subl${rmul} command... "
+IS_BASHRC_INSTALLED=''
 if [ -e ~/.bashrc ]; then
 	if [ -n "`grep "$BASHRC" ~/.bashrc`" ]; then
 		IS_BASHRC_INSTALLED=true
@@ -104,7 +116,7 @@ if [ -e ~/.bashrc ]; then
 	fi
 fi
 if [ -z $IS_BASHRC_INSTALLED ]; then
-	echo -e; echo -e
+	echo; echo
 	loop=true
 	while "$loop"; do
 		echo -en "$PROMPT_INSTALL_BASHRC"
@@ -120,46 +132,54 @@ if [ -z $IS_BASHRC_INSTALLED ]; then
 	fi
 fi
 
-echo -e
-loop=true
-while "$loop"; do
-	echo -en "$PROMPT_INSTALL_MIMEAPPS"
-	read input
-	if [ -n "`echo -e "$input" | grep -i [yn]`" ]; then
-		loop=false
+echo -en "Checking mimetype defaults... "
+IS_DEFAULT_MIMEAPP=''
+for MIME_TYPE in $MIME_TYPES
+do
+	if [ "`xdg-mime query default "$MIME_TYPE"`" != "$DESKTOP_FILENAME" ]; then
+		IS_DEFAULT_MIMEAPP=false
 	fi
-echo -en ""
 done
-if [ "$input" = "y" ]; then
-	xdg-mime default "$DESKTOP_FILENAME" application/x-perl
-	xdg-mime default "$DESKTOP_FILENAME" text/plain
-	xdg-mime default "$DESKTOP_FILENAME" text/x-chdr
-	xdg-mime default "$DESKTOP_FILENAME" text/x-csrc
-	xdg-mime default "$DESKTOP_FILENAME" text/x-dtd
-	xdg-mime default "$DESKTOP_FILENAME" text/x-java
-	xdg-mime default "$DESKTOP_FILENAME" text/mathml
-	xdg-mime default "$DESKTOP_FILENAME" text/x-python
-	xdg-mime default "$DESKTOP_FILENAME" text/x-sql
+if [ -z $IS_DEFAULT_MIMEAPP ]; then
+	echo -e 'no need; already default app.'
+else
+	echo
+	loop=true
+	while "$loop"; do
+		echo -en "$PROMPT_INSTALL_MIMEAPPS"
+		read input
+		if [ -n "`echo -e "$input" | grep -i [yn]`" ]; then
+			loop=false
+		fi
+	echo -en ""
+	done
+	if [ "$input" = "y" ]; then
+		for MIME_TYPE in $MIME_TYPES
+		do
+			xdg-mime default "$DESKTOP_FILENAME" "$MIME_TYPE"
+		done
+	fi
 fi
 
-echo -e 'Sublime Text 2 installed!'
+echo
+echo -e "Sublime Text 2 ${smul}installed${rmul}!"
 
-echo -e 'Cleaning up...'
+echo -e "Cleaning up..."
 cd ..
 rm -rf "$WORK_DIR"
 
 if [ -z disabled"$DISPLAY" ]; then
 	if [ -n "`which nautilus`" ]; then	
-		echo -e
+		echo
 		echo -e "$ICON_MSG"
 		echo -en "$PROMPT_SHOW_ICON"
 		read
 		nautilus "$DESKTOP_FILE"
 	fi
 else
-	echo -e
+	echo
 	echo -e "$ICON_MSG"
-	echo -e
+	echo
 fi
 
 echo -e "All done. You can run this installer again ($0)\nto reinstall or uninstall.\nBye!"
