@@ -24,6 +24,7 @@ BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now 
 
 PROMPT_CONTINUE="Press ${smso}[enter]${rmso} to continue, ${smso}[ctrl-C]${rmso} to exit."
 PROMPT_YN="  ${smso}[y/n]${rmso} "
+LINK_MSG="See ${smul}interestinglythere.com/berkeley/sublime${rmul} for more details."
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the ${smul}default editor${rmul} when you double-click a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2.${PROMPT_YN}"
 MIME_TYPES="application/x-perl text/plain text/x-c++ text/x-chdr text/x-csrc text/x-dtd text/x-java text/mathml text/x-python text/x-sql"
@@ -68,13 +69,14 @@ if [[ $? -ne 0 ]]; then
 	echo
 	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at one\n(e.g., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before\nrunning this script. If you're sshing, try:\n\n    ssh ${smul}username${rmul}@hive10.cs.berkeley.edu"
 	echo
+	echo -e "$LINK_MSG"
 	exit 1
 fi
 
 echo
 echo -e "${smso}                  SO I HEARD YOU WANT TO INSTALL SUBLIME TEXT                  ${rmso}"
 echo
-echo -e "This script will download ${smul}Sublime Text 2.0.2${rmul} and install it into your user\ndirectory at ~/${INSTALL_DIR_RELATIVE}.\n\nSublime will be added to the Ubuntu Unity Dash (apps button/\"start menu\" on\nthe top-left) and optionally can be run with the ${smul}subl${rmul} command.\n\nSee ${smul}interestinglythere.com/berkeley/sublime${rmul} for more details.\n$PROMPT_CONTINUE"
+echo -e "This script will download ${smul}Sublime Text 2.0.2${rmul} and install it into your user\ndirectory at ~/${INSTALL_DIR_RELATIVE}.\n\nSublime will be added to the Ubuntu Unity Dash (apps button/\"start menu\" on\nthe top-left) and optionally can be run with the ${smul}subl${rmul} command.\n\n$LINK_MSG\n$PROMPT_CONTINUE"
 read
 
 set -e
