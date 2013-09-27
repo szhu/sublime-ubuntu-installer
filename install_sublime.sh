@@ -66,7 +66,7 @@ EOF
 lsb_release 2> /dev/null
 if [[ $? -ne 0 ]]; then
 	echo
-	echo -e "This installer must be run from an Ubuntu machine.\nPlease seat yourself at an Ubuntu machine (i.e., the\nhiveN.cs.berkeley.edu machines in 330 Soda) or ssh\ninto one before installing. If you're sshing, try:\n  ssh `whoami`@hive10.cs.berkeley.edu"
+	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at an\nUbuntu machine (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh\ninto one before installing. If you're sshing, try:\n  ssh ${smul}username${rmul}@hive10.cs.berkeley.edu"
 	exit 1
 fi
 
