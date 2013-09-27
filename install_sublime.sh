@@ -14,7 +14,7 @@ SUBL_TAR_NAME='Sublime Text 2.0.2 x64.tar.bz2'
 SUBL_DIR='Sublime Text 2'
 
 INSTALL_DIR_RELATIVE='.local/share/sublime-text-2'
-INSTALL_DIR=~/INSTALL_DIR_RELATIVE
+INSTALL_DIR=~/"$INSTALL_DIR_RELATIVE"
 APPS_DIR=~/'.local/share/applications'
 
 PROMPT_CONTINUE="Press ${smso}[enter]${rmso} to continue, ${smso}[ctrl-C]${rmso} to exit."
