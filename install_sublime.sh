@@ -27,7 +27,7 @@ BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
 BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n\n    source ~/.bashrc\n"
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the ${smul}default editor${rmul} when you double-click a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2.${PROMPT_YN}"
-MIME_TYPES="application/x-shellscript application/x-perl text/plain text/x-c++ text/x-chdr text/x-csrc text/x-dtd text/x-java text/mathml text/x-python text/x-sql"
+MIME_TYPES="application/x-shellscript application/x-perl text/plain text/x-c++ text/x-chdr text/x-csrc text/x-dtd text/x-java text/mathml text/x-python text/x-sql text/x-scheme"
 
 ICON_MSG='An app icon has been installed to the Unity Dash (the "start menu" apps list).\nYou can drag this to the Unity Launcher (dock/taskbar).'
 PROMPT_SHOW_ICON="Press ${smso}[enter]${rmso} to show this icon."
