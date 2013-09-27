@@ -164,9 +164,10 @@ fi
 echo
 echo -e "Sublime Text 2 ${smul}installed${rmul}!"
 
-echo -e "Cleaning up..."
+echo -en "Cleaning up... "
 cd ..
 rm -rf "$WORK_DIR"
+echo -e "done."
 
 if [ -z disabled"$DISPLAY" ]; then
 	if [ -n "`which nautilus`" ]; then	
@@ -182,5 +183,5 @@ else
 	echo
 fi
 
-echo -e "All done. You can run this installer again ($0)\nto reinstall or uninstall. Have fun with Sublime!"
+echo -e "All done. You can run this installer again ($0) to reinstall\nor uninstall. Have fun with Sublime!"
 read
