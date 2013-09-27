@@ -14,7 +14,7 @@ APPS_DIR=~/'.local/share/applications'
 PROMPT_INSTALL_BASHRC="Set the 'subl' command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands! [y/n] "
 BASHRC_NONEED_MSG="entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
-BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n source ~/.bashrc"
+BASHRC_INSTALL_MSG="'subl' will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n  source ~/.bashrc"
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the default editor when you double-click on a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2. [y/n] "
 
@@ -55,11 +55,12 @@ EOF
 
 lsb_release 2> /dev/null
 if [[ $? -ne 0 ]]; then
-	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at an Ubuntu machine (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before installing. If you're sshing, try:\n ssh `whoami`@hive10.cs.berkeley.edu"
+	echo
+	echo -e "This installer must be run from an Ubuntu machine.\nPlease seat yourself at an Ubuntu machine (i.e., the\nhiveN.cs.berkeley.edu machines in 330 Soda) or ssh\ninto one before installing. If you're sshing, try:\n  ssh `whoami`@hive10.cs.berkeley.edu"
 	exit 1
 fi
 
-echo; echo
+echo
 echo -e "This script will install Sublime Text 2 into your user directory\nat $INSTALL_DIR.\nSublime will be added to the Ubuntu Dash (apps button on the top-left)\nand optionally can be run with the 'subl' command.\nSee interestinglythere.com/berkeley/sublime/ for more details.\nPress [enter] to continue, [ctrl-C] to exit."
 read
 
