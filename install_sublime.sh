@@ -20,7 +20,7 @@ APPS_DIR=~/'.local/share/applications'
 PROMPT_INSTALL_BASHRC="Set the ${smul}subl${rmul} command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands!${PROMPT_YN}"
 BASHRC_NONEED_MSG="no need; entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
-BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n  source ~/.bashrc"
+BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n\n    source ~/.bashrc"
 
 PROMPT_CONTINUE="Press ${smso}[enter]${rmso} to continue, ${smso}[ctrl-C]${rmso} to exit."
 PROMPT_YN="  ${smso}[y/n]${rmso} "
@@ -66,7 +66,8 @@ EOF
 lsb_release 2> /dev/null
 if [[ $? -ne 0 ]]; then
 	echo
-	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at one\n(i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into none before\nrunning this script. If you're sshing, try:\n  ssh ${smul}username${rmul}@hive10.cs.berkeley.edu"
+	echo -e "This installer must be run from an Ubuntu machine. Please seat yourself at one\n (i.e., the hiveN.cs.berkeley.edu machines in 330 Soda) or ssh into one before\nrunning this script. If you're sshing, try:\n\n    ssh ${smul}username${rmul}@hive10.cs.berkeley.edu"
+	echo
 	exit 1
 fi
 
