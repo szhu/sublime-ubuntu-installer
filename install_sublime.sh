@@ -24,7 +24,7 @@ LINK_MSG="See ${smul}interestinglythere.com/berkeley/sublime${rmul} for more det
 PROMPT_INSTALL_BASHRC="Set the ${smul}subl${rmul} command to open/open files with with Sublime Text?\nIt works just like the emacs, vim, and gedit commands!${PROMPT_YN}"
 BASHRC_NONEED_MSG="no need; entry already in ~/.bashrc."
 BASHRC='alias subl=~/".local/share/sublime-text-2/sublime_text"'
-BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n\n    source ~/.bashrc"
+BASHRC_INSTALL_MSG="${smul}subl${rmul} will work with terminals opened from now on.\nTo make the subl command work right here right now, do: \n\n    source ~/.bashrc\n"
 
 PROMPT_INSTALL_MIMEAPPS="Set Sublime Text as the ${smul}default editor${rmul} when you double-click a text file?\nOtherwise, right-click a file and select Open With > Sublime Text 2.${PROMPT_YN}"
 MIME_TYPES="application/x-perl text/plain text/x-c++ text/x-chdr text/x-csrc text/x-dtd text/x-java text/mathml text/x-python text/x-sql"
