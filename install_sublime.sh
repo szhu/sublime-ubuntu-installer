@@ -176,7 +176,7 @@ rm -rf "$WORK_DIR"
 echo -e "done."
 
 if [ -n "$DISPLAY" ]; then
-	echo 'Opening Sublime Text...'
+	echo -e 'Opening Sublime Text... once it opens, right-click its icon and select "Lock to Launcher"'
 	$EXEC_FILE &
 fi
 
