@@ -175,24 +175,14 @@ cd ..
 rm -rf "$WORK_DIR"
 echo -e "done."
 
-if [ -z disabled"$DISPLAY" ]; then
-	if [ -n "`which nautilus`" ]; then	
-		echo
-		echo -e "$ICON_MSG"
-		echo -en "$PROMPT_SHOW_ICON"
-		read
-		nautilus "$DESKTOP_FILE"
-	fi
-else
-	echo
-	echo -e "$ICON_MSG"
-	echo
-fi
-
 if [ -n "$DISPLAY" ]; then
 	echo 'Opening Sublime Text...'
 	$EXEC_FILE &
 fi
+
+echo
+echo -e "$ICON_MSG"
+echo
 
 
 echo -e "All done. You can run this installer again ($0) to reinstall\nor uninstall. ${smul}Have fun with Sublime!${rmul}"
