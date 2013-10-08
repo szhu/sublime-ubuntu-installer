@@ -189,7 +189,7 @@ else
 	echo
 fi
 
-if [ -z "$DISPLAY" ]; then
+if [ -n "$DISPLAY" ]; then
 	echo 'Opening Sublime Text...'
 	$EXEC_FILE &
 fi
