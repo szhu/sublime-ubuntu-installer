@@ -16,6 +16,7 @@ SUBL_DIR='Sublime Text 2'
 INSTALL_DIR_RELATIVE='.local/share/sublime-text-2'
 INSTALL_DIR=~/"$INSTALL_DIR_RELATIVE"
 APPS_DIR=~/'.local/share/applications'
+EXEC_FILE=~/'.local/share/sublime-text-2/sublime_text'
 
 PROMPT_CONTINUE="Press ${smso}[enter]${rmso} to continue, ${smso}[ctrl-C]${rmso} to exit."
 PROMPT_YN="  ${smso}[y/n]${rmso} "
@@ -187,6 +188,12 @@ else
 	echo -e "$ICON_MSG"
 	echo
 fi
+
+if [ -z "$DISPLAY" ]; then
+	echo 'Opening Sublime Text...'
+	$EXEC_FILE &
+fi
+
 
 echo -e "All done. You can run this installer again ($0) to reinstall\nor uninstall. ${smul}Have fun with Sublime!${rmul}"
 read
