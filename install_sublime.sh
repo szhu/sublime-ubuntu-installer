@@ -179,7 +179,8 @@ if [ -n "$DISPLAY" ]; then
 	echo -e 'Opening Sublime Text...'
 	$EXEC_FILE &
 	echo
-	echo -e 'Once it opens, please right-click its icon and select "Lock to Launcher"'
+	echo -e 'Once it opens, please right-click the icon and select "Lock to Launcher".'
+	echo -e 'You can also find the icon in the Unity Dash (the "start menu" apps list).'
 	echo -e 'Sublime Text not working for some reason? Try logging out and back in.'
 	echo
 else
