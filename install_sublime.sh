@@ -177,6 +177,7 @@ echo -e "done."
 
 if [ -n "$DISPLAY" ]; then
 	echo -e 'Opening Sublime Text... please right-click its icon and select "Lock to Launcher"'
+	echo -e 'Sublime Text not working for some reason? Try logging out and back in.'
 	$EXEC_FILE &
 fi
 
