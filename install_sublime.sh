@@ -176,15 +176,17 @@ rm -rf "$WORK_DIR"
 echo -e "done."
 
 if [ -n "$DISPLAY" ]; then
-	echo -e 'Opening Sublime Text... please right-click its icon and select "Lock to Launcher"'
-	echo -e 'Sublime Text not working for some reason? Try logging out and back in.'
+	echo -e 'Opening Sublime Text...'
 	$EXEC_FILE &
+	echo
+	echo -e 'Once it opens, please right-click its icon and select "Lock to Launcher"'
+	echo -e 'Sublime Text not working for some reason? Try logging out and back in.'
+	echo
+else
+	echo
+	echo -e "$ICON_MSG"
+	echo
 fi
-
-echo
-echo -e "$ICON_MSG"
-echo
-
 
 echo -e "All done. You can run this installer again ($0) to reinstall\nor uninstall. ${smul}Have fun with Sublime!${rmul}"
 read
