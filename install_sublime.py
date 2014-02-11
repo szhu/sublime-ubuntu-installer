@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from subprocess import Popen
-from os.path import exists, join, split
+from os.path import exists, join #, split
 from os import chdir
 from ast import literal_eval
 
@@ -114,7 +114,6 @@ OnlyShowIn=Unity;
 	confirm_continue = "Press <s>[enter]</s> to continue, <s>[ctrl-C]</s> to exit."
 	yes_or_no = "  <s>[y/n]</s> "
 	see_url = "See <u>http://szhu.me/subl</u> for more details."
-	see_url_problem = "Something not working? See <u>http://szhu.me/subl</u> for more details."
 
 	banner = "<s>                  SO I HEARD YOU WANT TO INSTALL SUBLIME TEXT                  </s>"
 	requires_ubuntu = "This installer must be run from an Ubuntu machine. Please seat yourself at one (e.g., the 2nd floor Soda machines or the hiveN.cs.berkeley.edu machines in 330) or ssh into one before running this script. If you're sshing, try:\n\n    ssh <u>username</u>@hive10.cs.berkeley.edu"
@@ -144,6 +143,8 @@ OnlyShowIn=Unity;
 
 
 	all_done = "All done. You can run this installer again to reinstall or uninstall."
+	all_caveats = "Does Sublime's icon look blurry? Log out and log back in."
+	see_url_problem = "Something else not working? See <u>http://szhu.me/subl</u> for more details."
 	have_fun = "<u>Have fun with Sublime!</u>"
 
 strings = Strings()
@@ -297,15 +298,12 @@ def main():
 	# if [ -n "$DISPLAY" ]; then
 	# 	print -e 'Opening Sublime Text...'
 	# 	$EXEC_FILE &
-	# else
-	# 	print
-	# 	print -e "$ICON_MSG"
-	# 	print
-	# fi
 
 	print
 	print_langblock('all_done')
+	print_langblock('all_caveats')
 	print_langblock('see_url_problem')
+	print
 	print_langblock('have_fun')
 	print
 	print
