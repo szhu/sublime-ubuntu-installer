@@ -80,7 +80,7 @@ class Strings(object):
 				"text/x-sql",
 				"text/x-scheme"]
 
-	desktop_name = "sublime-text-2.desktop"
+	desktop_name = "sublime-text-3.desktop"
 	desktop_file = join(install_apps_dir, desktop_name)
 	desktop_contents = '''
 #!/usr/bin/env xdg-open
