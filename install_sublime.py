@@ -93,7 +93,7 @@ Exec=~/.local/share/sublime-text-3/sublime_text %F
 Terminal=false
 Type=Application
 MimeType=text/plain;text/x-chdr;text/x-csrc;text/x-c++hdr;text/x-c++src;text/x-java;text/x-dsrc;text/x-pascal;text/x-perl;text/x-python;application/x-php;application/x-httpd-php3;application/x-httpd-php4;application/x-httpd-php5;application/xml;text/html;text/css;text/x-sql;text/x-diff;x-directory/normal;inode/directory;
-Icon=~/.local/share/sublime-text-2/Icon/128x128/sublime-text.png
+Icon=~/.local/share/sublime-text-3/Icon/128x128/sublime-text.png
 Categories=TextEditor;Development;Utility;
 StartupNotify=true
 Actions=Window;Document;
@@ -118,7 +118,7 @@ OnlyShowIn=Unity;
 	banner = "<s>                  SO I HEARD YOU WANT TO INSTALL SUBLIME TEXT                  </s>"
 	requires_ubuntu = "This installer must be run from an Ubuntu machine. Please seat yourself at one (e.g., the 2nd floor Soda machines or the hiveN.cs.berkeley.edu machines in 330) or ssh into one before running this script. If you're sshing, try:\n\n    ssh <u>username</u>@hive10.cs.berkeley.edu"
 
-	what_this_script_does = 'This script will download <u>Sublime Text 2.0.2</u> and install it into your user directory at ' + install_subl_dir + '\n\nSublime will be added to the Ubuntu Unity Dash (apps button/"start menu" on the top-left) and optionally can be run with the <u>subl</u> command.\n'
+	what_this_script_does = 'This script will download <u>Sublime Text 3 build 3059</u> and install it into your user directory at ' + install_subl_dir + '\n\nSublime will be added to the Ubuntu Unity Dash (apps button/"start menu" on the top-left) and optionally can be run with the <u>subl</u> command.\n'
 
 	uninstalling = "Uninstalling ..."
 	uninstalled = "old version of Sublime Text uninstalled."
