@@ -56,16 +56,16 @@ class Strings(object):
 	tmp_directory_info = "This directory is used by the Sublime install script. You can delete this when it's finished installing."
 	tmp_directory_info_file = "README"
 
-	pkg_url = 'http://c758482.r82.cf2.rackcdn.com/Sublime%20Text%202.0.2%20x64.tar.bz2'
-	pkg_name = 'Sublime Text 2.0.2 x64.tar.bz2'
-	pkg_dir = 'Sublime Text 2'
+	pkg_url = 'http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3059_x64.tar.bz2'
+	pkg_name = 'sublime_text_3_build_3059_x64.tar.bz2'
+	pkg_dir = 'sublime_text_3'
 
-	install_subl_dir = '~/.local/share/sublime-text-2'
+	install_subl_dir = '~/.local/share/sublime-text-3'
 	install_apps_dir = '~/.local/share/applications'
-	install_exe = '~/.local/share/sublime-text-2/sublime_text'
+	install_exe = '~/.local/share/sublime-text-3/sublime_text'
 
 	bashrc_file = '~/.bashrc'
-	bashrc_contents = 'alias subl=~/".local/share/sublime-text-2/sublime_text"'
+	bashrc_contents = 'alias subl=~/".local/share/sublime-text-3/sublime_text"'
 
 	mime_types = ["application/x-shellscript",
 				"application/x-perl",
@@ -86,14 +86,14 @@ class Strings(object):
 #!/usr/bin/env xdg-open
 
 [Desktop Entry]
-Name=Sublime Text 2
+Name=Sublime Text 3
 GenericName=Text Editor
 Comment=Sophisticated text editor for code, html and prose
-Exec=~/.local/share/sublime-text-2/sublime_text %F
+Exec=~/.local/share/sublime-text-3/sublime_text %F
 Terminal=false
 Type=Application
 MimeType=text/plain;text/x-chdr;text/x-csrc;text/x-c++hdr;text/x-c++src;text/x-java;text/x-dsrc;text/x-pascal;text/x-perl;text/x-python;application/x-php;application/x-httpd-php3;application/x-httpd-php4;application/x-httpd-php5;application/xml;text/html;text/css;text/x-sql;text/x-diff;x-directory/normal;inode/directory;
-Icon=~/.local/share/sublime-text-2/Icon/256x256/sublime_text.png
+Icon=~/.local/share/sublime-text-2/Icon/128x128/sublime-text.png
 Categories=TextEditor;Development;Utility;
 StartupNotify=true
 Actions=Window;Document;
@@ -102,7 +102,7 @@ X-Desktop-File-Install-Version=0.21
 
 [Desktop Action Window]
 Name=New Window
-Exec=~/.local/share/sublime-text-2/sublime_text -n
+Exec=~/.local/share/sublime-text-3/sublime_text -n
 OnlyShowIn=Unity;
 
 [Desktop Action Document]
