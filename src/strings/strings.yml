@@ -1,0 +1,79 @@
+2:
+  major_version: 2
+
+  pkg_name: Sublime Text 2.0.2 x64.tar.bz2
+  pkg_dir: Sublime Text 2
+
+  install_icon: $(install_subl_dir)/Icon/256x256/sublime_text.png
+
+
+3:
+  major_version: 3
+
+  pkg_name: sublime_text_3_build_3059_x64.tar.bz2
+  pkg_dir: sublime_text_3
+
+  install_icon: $(install_subl_dir)/Icon/128x128/sublime-text.png
+
+
+common:
+  tmp_dir: /tmp/install_sublime_tmp
+  tmp_directory_info_file: README
+  tmp_directory_info_contents: >
+    This directory is used by the Sublime Text installer. You can delete this when it's finished installing.
+
+  pkg_url: http://c758482.r82.cf2.rackcdn.com/$(pkg_name)
+
+  install_apps_dir: $(HOME)/.local/share/applications
+  install_subl_dir: $(HOME)/.local/share/sublime-text-$(major_version)
+  install_exe: $(install_subl_dir)/sublime_text
+
+  bashrc_file: $(HOME)/.bashrc
+  bashrc_contents: 'export PATH=~/".local/bin":"$PATH"'
+
+  mime_types:
+    - application/x-perl
+    - application/x-shellscript
+    - text/mathml
+    - text/plain
+    - text/x-c++
+    - text/x-chdr
+    - text/x-csrc
+    - text/x-dtd
+    - text/x-java
+    - text/x-python
+    - text/x-scheme
+    - text/x-sql
+
+  desktop_name: "sublime-text-$(major_version).desktop"
+  desktop_file: $(install_apps_dir) $(desktop_name)
+  desktop_contents: |
+    #!/usr/bin/env xdg-open
+    #
+    [Desktop Entry]
+    Name=Sublime Text 3
+    GenericName=Text Editor
+    Comment=Sophisticated text editor for code, html and prose
+    Exec=$(install_exe) %F
+    Terminal=false
+    Type=Application
+    MimeType=text/plain;text/x-chdr;text/x-csrc;text/x-c++hdr;text/x-c++src;text/x-java;text/x-dsrc;text/x-pascal;text/x-perl;text/x-python;application/x-php;application/x-httpd-php3;application/x-httpd-php4;application/x-httpd-php5;application/xml;text/html;text/css;text/x-sql;text/x-diff;x-directory/normal;inode/directory;
+    Icon=$(install_icon)
+    Categories=TextEditor;Development;Utility;
+    StartupNotify=true
+    Actions=Window;Document;
+    #
+    X-Desktop-File-Install-Version=0.21
+    #
+    [Desktop Action Window]
+    Name=New Window
+    Exec=$(install_exe) -n
+    OnlyShowIn=Unity;
+    #
+    [Desktop Action Document]
+    Name=New File
+    Exec=$(install_exe) --command new_file
+    OnlyShowIn=Unity;
+
+  url: http://szhu.me/subl
+
