@@ -1,18 +1,27 @@
 BUILD = build/sublime-installer.zip
+STRINGS_SRC = src/strings/strings.yml
+STRINGS_BUILD = src/installer/strings.py
 
-SRC_FILES_REL_SRC = $(shell cd src && git ls-files)
-SRC_FILES_REL_ROOT = $(shell git ls-files src)
+GIT_LS_ARGS = -mo --exclude-standard
+INSTALLER_FILES_LOC = src/installer
+SRC_FILES_REL_SRC = $(shell cd $(INSTALLER_FILES_LOC) && git ls-files -mo --exclude-standard)
+SRC_FILES_REL_ROOT = $(shell git ls-files -mo --exclude-standard $(INSTALLER_FILES_LOC))
 
-all: $(BUILD)
+all: Makefile $(BUILD)
 
-$(BUILD): $(SRC_FILES_REL_ROOT)
+$(BUILD): Makefile $(SRC_FILES_REL_ROOT)
 	rm -f $(BUILD)
-	cd src && zip -r ../$(BUILD) -- $(SRC_FILES_REL_SRC)
+	cd $(INSTALLER_FILES_LOC) && zip -r ../$(BUILD) -- $(SRC_FILES_REL_SRC)
 
-run: all
+$(STRINGS_BUILD): Makefile src/strings/process_strings.py $(STRINGS_SRC)
+	python src/strings/process_strings.py $(STRINGS_SRC) $(STRINGS_BUILD)
+
+strings: Makefile $(STRINGS_BUILD)
+
+run: Makefile all
 	python $(BUILD)
 
 clean:
-	rm -f $(BUILD)
+	rm -f $(BUILD) $(STRINGS_BUILD)
 
-.PHONY: all clean run
+.PHONY: all clean run strings
