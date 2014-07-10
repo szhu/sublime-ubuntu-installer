@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 INDENT = '   '
-MAJOR_VERSION = 2
+MAJOR_VERSION = 3
 from sys import stderr
 
 
@@ -11,18 +11,27 @@ def main(args):
         args.append(None)
     assert len(args) == 2
     infile, outfile = args
+
     print >> stderr, 'read yaml...'
     data = load_data_from_yaml(infile)
+
     print >> stderr, 'merge strings...'
     strings = merge_strings(data)
+
     print >> stderr, 'variable-substitute strings...'
     sub_strings(strings)
+
+    def line_suffix_f(value):
+        return data['line_suffix'] if isinstance(value, str) else ''
+
     print >> stderr, 'transform strings...'
-    assignments = strings_to_assignments(strings, data['line_suffix'])
+    assignments = strings_to_assignments(strings, line_suffix_f)
+
     print >> stderr, 'sort strings...'
     assignments.sort()
+
     print >> stderr, 'write strings...'
-    outcontents = data['file_prefix']
+    outcontents = data['file_prefix'] + '\n'
     outcontents += ''.join(assignments)
     if outfile:
         writefile(outfile, outcontents)
@@ -89,8 +98,8 @@ def sub_strings(strings):
         process_key(key, [])
 
 
-def strings_to_assignments(strings, line_suffix):
-    return ['%s = %r%s\n' % (key.upper(), strings[key], line_suffix) for key in strings.keys()]
+def strings_to_assignments(strings, line_suffix_f):
+    return ['%s = %r%s\n' % (key.upper(), strings[key], line_suffix_f(strings[key])) for key in strings.keys()]
 
 
 if __name__ == '__main__':

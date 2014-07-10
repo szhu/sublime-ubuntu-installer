@@ -32,11 +32,17 @@ common:
   pkg_url: http://c758482.r82.cf2.rackcdn.com/$(pkg_name)
 
   install_apps_dir: $<HOME>/.local/share/applications
-  install_subl_dir: $<HOME>/.local/share/sublime-text-$(major_version)
+  install_subl_dir_rel: share/sublime-text-$(major_version)
+  install_subl_dir: $<HOME>/.local/$(install_subl_dir_rel)
+  install_exe_rel: $(install_subl_dir_rel)/sublime_text
   install_exe: $(install_subl_dir)/sublime_text
 
   bashrc_file: $<HOME>/.bashrc
   bashrc_contents: 'export PATH=~/".local/bin":"$PATH"'
+
+  symlink_dir: $<HOME>/.local/bin
+  symlink_file: $<HOME>/.local/bin/subl
+  symlink_target: ../$(install_exe_rel)
 
   mime_types:
     - application/x-perl
@@ -58,7 +64,7 @@ common:
     #!/usr/bin/env xdg-open
     #
     [Desktop Entry]
-    Name=Sublime Text 3
+    Name=Sublime Text $(major_version)
     GenericName=Text Editor
     Comment=Sophisticated text editor for code, html and prose
     Exec=$(install_exe) %F
