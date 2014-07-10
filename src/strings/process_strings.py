@@ -18,11 +18,12 @@ def main(args):
     print >> stderr, 'variable-substitute strings...'
     sub_strings(strings)
     print >> stderr, 'transform strings...'
-    assignments = strings_to_assignments(strings)
+    assignments = strings_to_assignments(strings, data['line_suffix'])
     print >> stderr, 'sort strings...'
     assignments.sort()
     print >> stderr, 'write strings...'
-    outcontents = ''.join(assignments)
+    outcontents = data['file_prefix']
+    outcontents += ''.join(assignments)
     if outfile:
         writefile(outfile, outcontents)
     else:
@@ -88,8 +89,8 @@ def sub_strings(strings):
         process_key(key, [])
 
 
-def strings_to_assignments(strings):
-    return ['%s = %r\n' % (key.upper(), strings[key]) for key in strings.keys()]
+def strings_to_assignments(strings, line_suffix):
+    return ['%s = %r%s\n' % (key.upper(), strings[key], line_suffix) for key in strings.keys()]
 
 
 if __name__ == '__main__':

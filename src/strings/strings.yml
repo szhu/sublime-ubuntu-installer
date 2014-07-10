@@ -1,3 +1,10 @@
+file_prefix: |
+  from os.path import expanduser
+  HOME = expanduser("~")
+
+line_suffix: ".replace('$<HOME>', HOME)"
+
+
 2:
   major_version: 2
 
