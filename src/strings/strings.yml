@@ -24,11 +24,11 @@ common:
 
   pkg_url: http://c758482.r82.cf2.rackcdn.com/$(pkg_name)
 
-  install_apps_dir: $(HOME)/.local/share/applications
-  install_subl_dir: $(HOME)/.local/share/sublime-text-$(major_version)
+  install_apps_dir: $<HOME>/.local/share/applications
+  install_subl_dir: $<HOME>/.local/share/sublime-text-$(major_version)
   install_exe: $(install_subl_dir)/sublime_text
 
-  bashrc_file: $(HOME)/.bashrc
+  bashrc_file: $<HOME>/.bashrc
   bashrc_contents: 'export PATH=~/".local/bin":"$PATH"'
 
   mime_types:
