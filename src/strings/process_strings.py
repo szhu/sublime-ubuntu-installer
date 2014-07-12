@@ -2,15 +2,17 @@
 # -*- coding: utf-8 -*-
 
 INDENT = '   '
-MAJOR_VERSION = 3
+# MAJOR_VERSION = 3
 from sys import stderr
 
 
 def main(args):
-    if len(args) == 1:
+    global MAJOR_VERSION
+
+    if len(args) == 2:
         args.append(None)
-    assert len(args) == 2
-    infile, outfile = args
+    assert len(args) == 3
+    MAJOR_VERSION, infile, outfile = args
 
     print >> stderr, 'read yaml...'
     data = load_data_from_yaml(infile)

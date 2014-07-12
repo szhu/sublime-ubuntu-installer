@@ -1,27 +1,46 @@
 #!/usr/bin/env python
 
-from sublime_strings import BASHRC_CONTENTS
-from sublime_strings import BASHRC_FILE
-from sublime_strings import DESKTOP_CONTENTS
-from sublime_strings import DESKTOP_FILE
-from sublime_strings import DESKTOP_NAME
-from sublime_strings import INSTALL_APPS_DIR
-from sublime_strings import INSTALL_EXE
-from sublime_strings import INSTALL_ICON
-from sublime_strings import INSTALL_SUBL_DIR
-from sublime_strings import MAJOR_VERSION
-from sublime_strings import MIME_TYPES
-from sublime_strings import PKG_DIR
-from sublime_strings import PKG_NAME
-from sublime_strings import PKG_URL
-from sublime_strings import TMP_DIR
-from sublime_strings import TMP_DIRECTORY_INFO_CONTENTS
-from sublime_strings import TMP_DIRECTORY_INFO_FILE
-from sublime_strings import URL
+from subprocess import Popen
+from os.path import exists, join  #, split
+from os import chdir
+from ast import literal_eval
 
+from strings import strings
 
+def s(key):
+    if hasattr(strings, key): return getattr(strings, key)
+    else: raise AttributeError('string not found: %r' % key)
 
+ss=cmd_stdout('tput', 'smso')
+rs=cmd_stdout('tput', 'rmso')
+su=cmd_stdout('tput', 'smul')
+ru=cmd_stdout('tput', 'rmul')
+def lang(key):
+    val = s(key)
+    val = val.replace('<u>', su)
+    val = val.replace('</u>', ru)
+    val = val.replace('<s>', ss)
+    val = val.replace('</s>', rs)
+    return val
 
+def print_lang(key):
+    print lang(key),
+    flush()
+
+def print_langblock(key):
+    from textwrap import fill
+    val = lang(key)
+    print fill(val, width=80)
+    # print val
+    flush()
+
+def path(key):
+    from os.path import expanduser
+    return expanduser(s(key))
+
+def user_multi(key):
+    from os.path import expanduser
+    return s(key).replace('~', expanduser('~'))
 
 
 def flush(dev=None):

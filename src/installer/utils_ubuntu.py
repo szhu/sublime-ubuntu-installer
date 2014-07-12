@@ -32,3 +32,10 @@ def add_app_to_launcher(app):
     launcher_items = get_launcher_items()
     launcher_items.append(app)
     do_command('gsettings', 'set', 'com.canonical.Unity.Launcher', 'favorites', repr(launcher_items))
+
+
+def remove_app_from_launcher(app):
+    from commands import do_command
+    launcher_items = get_launcher_items()
+    launcher_items.remove(app)
+    do_command('gsettings', 'set', 'com.canonical.Unity.Launcher', 'favorites', repr(launcher_items))

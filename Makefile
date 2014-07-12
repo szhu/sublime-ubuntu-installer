@@ -1,6 +1,7 @@
 BUILD = build/sublime-installer.zip
 STRINGS_SRC = src/strings/strings.yml
-STRINGS_BUILD = src/installer/sublime_strings.py
+STRINGS_BUILD_2 = src/installer/sublime_strings_2.py
+STRINGS_BUILD_3 = src/installer/sublime_strings_3.py
 
 GIT_LS_ARGS = --exclude-standard
 INSTALLER_FILES_LOC = src/installer
@@ -14,15 +15,18 @@ $(BUILD): Makefile $(SRC_FILES_REL_ROOT)
 	rm -f $(BUILD)
 	cd $(INSTALLER_FILES_LOC) && zip -r $(INSTALLER_FILES_RLOC)/$(BUILD) -- $(SRC_FILES_REL_SRC)
 
-$(STRINGS_BUILD): Makefile src/strings/process_strings.py $(STRINGS_SRC)
-	python src/strings/process_strings.py $(STRINGS_SRC) $(STRINGS_BUILD)
+$(STRINGS_BUILD_2): Makefile src/strings/process_strings.py $(STRINGS_SRC)
+	python src/strings/process_strings.py 2 $(STRINGS_SRC) $(STRINGS_BUILD_2)
 
-strings: Makefile $(STRINGS_BUILD)
+$(STRINGS_BUILD_3): Makefile src/strings/process_strings.py $(STRINGS_SRC)
+	python src/strings/process_strings.py 3 $(STRINGS_SRC) $(STRINGS_BUILD_3)
+
+strings: Makefile $(STRINGS_BUILD_2) $(STRINGS_BUILD_3)
 
 run: Makefile all
 	python $(BUILD)
 
 clean:
-	rm -f $(BUILD) $(STRINGS_BUILD)
+	rm -f $(BUILD) $(STRINGS_BUILD_2) $(STRINGS_BUILD_3)
 
 .PHONY: all clean run strings
