@@ -9,7 +9,7 @@ INSTALLER_FILES_RLOC = ../..
 SRC_FILES_REL_SRC = $(shell cd $(INSTALLER_FILES_LOC) && git ls-files $(GIT_LS_ARGS))
 SRC_FILES_REL_ROOT = $(shell git ls-files $(GIT_LS_ARGS) $(INSTALLER_FILES_LOC))
 
-all: Makefile $(BUILD)
+all: Makefile strings $(BUILD)
 
 $(BUILD): Makefile $(SRC_FILES_REL_ROOT)
 	rm -f $(BUILD)

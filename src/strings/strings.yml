@@ -5,7 +5,7 @@ file_prefix: |
 line_suffix: ".replace('$<HOME>', HOME)"
 
 
-2:
+'2':
   major_version: 2
 
   pkg_name: Sublime Text 2.0.2 x64.tar.bz2
@@ -14,7 +14,7 @@ line_suffix: ".replace('$<HOME>', HOME)"
   install_icon: $(install_subl_dir)/Icon/256x256/sublime_text.png
 
 
-3:
+'3':
   major_version: 3
 
   pkg_name: sublime_text_3_build_3059_x64.tar.bz2
