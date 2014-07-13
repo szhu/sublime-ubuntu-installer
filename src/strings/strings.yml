@@ -4,12 +4,12 @@ file_prefix: |
 
 line_template: |
   def %s():
-    if _version == 2:
-      return %r.replace('$<HOME>', HOME)
-    elif _version == 3:
-      return %r.replace('$<HOME>', HOME)
-    else:
-      raise ValueError('unknown version %%r' %% _version)
+      if _version == 2:
+          return %r.replace('$<HOME>', HOME)
+      elif _version == 3:
+          return %r.replace('$<HOME>', HOME)
+      else:
+          raise ValueError('unknown version %%r' %% _version)
 
 
 2:

@@ -23,16 +23,8 @@ def main(args):
         print >> stderr, 'variable-substitute strings for %s...' % version
         sub_strings(strings[version])
 
-    strings = interpolate_strings(strings)
-
-    def line_suffix_f(value):
-        return data['line_suffix'] if isinstance(value, str) else ''
-
     print >> stderr, 'transform strings...'
-    assignments = strings_to_assignments(strings, line_suffix_f)
-
-    print >> stderr, 'sort strings...'
-    assignments.sort()
+    assignments = strings_to_assignments(strings, data['line_template'])
 
     print >> stderr, 'write strings...'
     outcontents = data['file_prefix'] + '\n'
@@ -69,17 +61,6 @@ def merge_strings(data, version):
     return strings
 
 
-# http://stackoverflow.com/a/2273738/782045
-def interpolate_strings(strings):
-    from collections import defaultdict
-
-    flipped = defaultdict(dict)
-    for key, val in strings.items():
-        for subkey, subval in val.items():
-            flipped[subkey][key] = subval
-    return flipped
-
-
 def sub_strings(strings):
     from re import compile, search
     general_search_pattern = compile(r'\$\((\w+?)\)')
@@ -114,13 +95,16 @@ def sub_strings(strings):
 
 
 def strings_to_assignments(strings, line_template):
+    assert set(strings[2].keys()) == set(strings[3].keys())
+    keys = strings[2].keys()
+    keys.sort()
     return [
         line_template % (
             key.upper(),
             strings[2][key],
             strings[3][key],
         )
-        for key in strings.keys()
+        for key in keys
     ]
 
 
