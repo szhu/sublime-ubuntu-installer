@@ -3,6 +3,8 @@ file_prefix: |
   HOME = expanduser("~")
 
 line_template: |
+  
+  
   def %s():
       if _version == 2:
           return %r.replace('$<HOME>', HOME)
