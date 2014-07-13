@@ -1,6 +1,11 @@
 from os.path import expanduser
 HOME = expanduser("~")
+_version = None
 
+
+def set_version(version):
+    global _version
+    _version = version
 
 
 def BASHRC_CONTENTS():
@@ -104,18 +109,18 @@ def INSTALL_SUBL_DIR_REL():
 
 def MAJOR_VERSION():
     if _version == 2:
-        return 2.replace('$<HOME>', HOME)
+        return 2
     elif _version == 3:
-        return 3.replace('$<HOME>', HOME)
+        return 3
     else:
         raise ValueError('unknown version %r' % _version)
 
 
 def MIME_TYPES():
     if _version == 2:
-        return ['application/x-perl', 'application/x-shellscript', 'text/mathml', 'text/plain', 'text/x-c++', 'text/x-chdr', 'text/x-csrc', 'text/x-dtd', 'text/x-java', 'text/x-python', 'text/x-scheme', 'text/x-sql'].replace('$<HOME>', HOME)
+        return ['application/x-perl', 'application/x-shellscript', 'text/mathml', 'text/plain', 'text/x-c++', 'text/x-chdr', 'text/x-csrc', 'text/x-dtd', 'text/x-java', 'text/x-python', 'text/x-scheme', 'text/x-sql']
     elif _version == 3:
-        return ['application/x-perl', 'application/x-shellscript', 'text/mathml', 'text/plain', 'text/x-c++', 'text/x-chdr', 'text/x-csrc', 'text/x-dtd', 'text/x-java', 'text/x-python', 'text/x-scheme', 'text/x-sql'].replace('$<HOME>', HOME)
+        return ['application/x-perl', 'application/x-shellscript', 'text/mathml', 'text/plain', 'text/x-c++', 'text/x-chdr', 'text/x-csrc', 'text/x-dtd', 'text/x-java', 'text/x-python', 'text/x-scheme', 'text/x-sql']
     else:
         raise ValueError('unknown version %r' % _version)
 

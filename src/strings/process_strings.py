@@ -27,7 +27,7 @@ def main(args):
     assignments = strings_to_assignments(strings, data['line_template'])
 
     print >> stderr, 'write strings...'
-    outcontents = data['file_prefix'] + '\n'
+    outcontents = data['file_prefix']
     outcontents += ''.join(assignments)
     if outfile:
         writefile(outfile, outcontents)
@@ -94,6 +94,13 @@ def sub_strings(strings):
         process_key(key, [])
 
 
+def repr_and_expand_home(value):
+    representation = repr(value)
+    if isinstance(value, str):
+        representation += ".replace('$<HOME>', HOME)"
+    return representation
+
+
 def strings_to_assignments(strings, line_template):
     assert set(strings[2].keys()) == set(strings[3].keys())
     keys = strings[2].keys()
@@ -101,8 +108,8 @@ def strings_to_assignments(strings, line_template):
     return [
         line_template % (
             key.upper(),
-            strings[2][key],
-            strings[3][key],
+            repr_and_expand_home(strings[2][key]),
+            repr_and_expand_home(strings[3][key]),
         )
         for key in keys
     ]

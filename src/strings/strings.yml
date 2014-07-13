@@ -1,18 +1,23 @@
 file_prefix: |
   from os.path import expanduser
   HOME = expanduser("~")
+  _version = None
+
+
+  def set_version(version):
+      global _version
+      _version = version
 
 line_template: |
-  
-  
+
+
   def %s():
       if _version == 2:
-          return %r.replace('$<HOME>', HOME)
+          return %s
       elif _version == 3:
-          return %r.replace('$<HOME>', HOME)
+          return %s
       else:
           raise ValueError('unknown version %%r' %% _version)
-
 
 2:
   major_version: 2
