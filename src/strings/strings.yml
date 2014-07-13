@@ -90,3 +90,9 @@ common:
 
   url: http://szhu.me/subl
 
+  reason_requires_ubuntu: >
+    This installer can only be run on an Ubuntu machine.
+  reason_core_already_installed: >
+    Sublime Text $(major_version) appears to already be installed to $(install_subl_dir). Installing will overwrite the previous version.
+  reason_core_not_installed: >
+   Sublime Text $(major_version) is not installed to $(install_subl_dir) (or at all), and so can't be removed by this installer.
