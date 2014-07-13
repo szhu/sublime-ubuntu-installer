@@ -2,26 +2,28 @@
 # -*- coding: utf-8 -*-
 
 INDENT = '   '
-# MAJOR_VERSION = 3
 from sys import stderr
 
 
 def main(args):
-    global MAJOR_VERSION
-
-    if len(args) == 2:
+    if len(args) == 1:
         args.append(None)
-    assert len(args) == 3
-    MAJOR_VERSION, infile, outfile = args
+    assert len(args) == 2
+    infile, outfile = args
 
     print >> stderr, 'read yaml...'
     data = load_data_from_yaml(infile)
 
-    print >> stderr, 'merge strings...'
-    strings = merge_strings(data)
+    strings = {}
 
-    print >> stderr, 'variable-substitute strings...'
-    sub_strings(strings)
+    for version in (2, 3):
+        print >> stderr, 'merge strings for %s...' % version
+        strings[version] = merge_strings(data, version)
+
+        print >> stderr, 'variable-substitute strings for %s...' % version
+        sub_strings(strings[version])
+
+    strings = interpolate_strings(strings)
 
     def line_suffix_f(value):
         return data['line_suffix'] if isinstance(value, str) else ''
@@ -52,9 +54,9 @@ def writefile(path, contents):
         return f.write(contents)
 
 
-def merge_strings(data):
+def merge_strings(data, version):
     common = data['common']
-    versioned = data[MAJOR_VERSION]
+    versioned = data[version]
 
     # Insure no duplicates
     assert not [key for key in versioned if key in common]
@@ -65,6 +67,17 @@ def merge_strings(data):
     strings = common.copy()
     strings.update(versioned)
     return strings
+
+
+# http://stackoverflow.com/a/2273738/782045
+def interpolate_strings(strings):
+    from collections import defaultdict
+
+    flipped = defaultdict(dict)
+    for key, val in strings.items():
+        for subkey, subval in val.items():
+            flipped[subkey][key] = subval
+    return flipped
 
 
 def sub_strings(strings):
@@ -100,8 +113,15 @@ def sub_strings(strings):
         process_key(key, [])
 
 
-def strings_to_assignments(strings, line_suffix_f):
-    return ['%s = %r%s\n' % (key.upper(), strings[key], line_suffix_f(strings[key])) for key in strings.keys()]
+def strings_to_assignments(strings, line_template):
+    return [
+        line_template % (
+            key.upper(),
+            strings[2][key],
+            strings[3][key],
+        )
+        for key in strings.keys()
+    ]
 
 
 if __name__ == '__main__':
