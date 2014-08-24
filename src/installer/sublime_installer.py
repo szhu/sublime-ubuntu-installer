@@ -21,6 +21,8 @@ from sublime_strings import URL
 from sublime_strings import REASON_REQUIRES_UBUNTU
 from sublime_strings import REASON_CORE_ALREADY_INSTALLED
 from sublime_strings import REASON_CORE_NOT_INSTALLED
+from sublime_strings import TMP_PKG
+from sublime_strings import TMP_PKG_DIR
 
 
 from command import do_command, pipe
@@ -46,6 +48,28 @@ class Download(Package):
         self.dependencies = []
         self.autoundo_action = None
 
+    def do(self):
+        do_command('mkdir', '-p', TMP_DIR())
+        do_command('curl', '-fsSL', '--output', TMP_PKG(), PKG_URL())
+        do_command('tar', '-xjf', TMP_PKG(), '-C', TMP_DIR())
+
+    def undo(self):
+        do_command('rm', '-rf', TMP_DIR())
+
+    def check(self):
+        from os.path import isdir
+
+        if isdir(TMP_DIR()):
+            installed = ReasonedBoolean(True)
+            do_allowed = ReasonedBoolean(False)
+            undo_allowed = ReasonedBoolean(True)
+        else:
+            installed = ReasonedBoolean(False)
+            do_allowed = ReasonedBoolean(True)
+            undo_allowed = ReasonedBoolean(False)
+
+        self.cache_check_result(installed, do_allowed, undo_allowed)
+
 
 @register_package
 class Core(Package):
@@ -57,41 +81,58 @@ class Core(Package):
         from utils_ubuntu import is_ubuntu
         from os.path import isdir
 
-        if isdir(INSTALL_SUBL_DIR):
-            do_allowed = ReasonedBoolean(True, ERROR, REASON_CORE_ALREADY_INSTALLED)
+        if isdir(INSTALL_SUBL_DIR()):
+            installed = ReasonedBoolean(True)
+            do_allowed = ReasonedBoolean(True, ERROR, REASON_CORE_ALREADY_INSTALLED())
             undo_allowed = ReasonedBoolean(True)
         else:
+            installed = ReasonedBoolean(False)
             do_allowed = ReasonedBoolean(True)
-            undo_allowed = ReasonedBoolean(False, WARN, REASON_CORE_NOT_INSTALLED)
+            undo_allowed = ReasonedBoolean(False, WARN, REASON_CORE_NOT_INSTALLED())
 
         if not is_ubuntu():
-            do_allowed = ReasonedBoolean(False, ERROR, REASON_REQUIRES_UBUNTU)
+            do_allowed = ReasonedBoolean(False, ERROR, REASON_REQUIRES_UBUNTU())
 
-        self.cache_check_result(do_allowed, undo_allowed)
+        self.cache_check_result(installed, do_allowed, undo_allowed)
 
     def do(self):
-        pkgfile = file(PKG_NAME, 'w')
-        do_command('curl', '-fsSL', PKG_URL, stdout=pkgfile)
-        pkgfile.close()
-
-        print_lang('installing')
-        do_command('tar', '-xf', PKG_NAME, '--bzip2')
-        do_command('mv', PKG_DIR, INSTALL_SUBL_DIR)
-        writefile( DESKTOP_FILE , DESKTOP_CONTENTS )
-        do_command('chmod', 'u+x', DESKTOP_FILE)
-        print_langblock('installed')
-
+        do_command('mv', TMP_PKG_DIR(), INSTALL_SUBL_DIR())
 
     def undo(self):
-        do_command('rm', '-rf', INSTALL_SUBL_DIR, DESKTOP_FILE)
-        print_langblock('uninstalled')
+        do_command('rm', '-rf', INSTALL_SUBL_DIR(), DESKTOP_FILE())
 
+
+@register_package
+class Desktop(Package):
+    def init(self):
+        self.dependencies = [Core]
+        self.autoundo_action = 'check'
+
+    def do(self):
+        from utils_io import writefile
+        do_command('mkdir', '-p', INSTALL_APPS_DIR())
+        writefile(DESKTOP_FILE(), DESKTOP_CONTENTS())
+        do_command('chmod', 'u+x', DESKTOP_FILE())
+
+    def check(self):
+        from os.path import isfile
+
+        if isfile(DESKTOP_FILE()):
+            installed = ReasonedBoolean(True)
+            do_allowed = ReasonedBoolean(False)
+            undo_allowed = ReasonedBoolean(True)
+        else:
+            installed = ReasonedBoolean(False)
+            do_allowed = ReasonedBoolean(True)
+            undo_allowed = ReasonedBoolean(False)
+
+        self.cache_check_result(installed, do_allowed, undo_allowed)
 
 
 @register_package
 class Launcher(Package):
     def init(self):
-        self.dependencies = [Core]
+        self.dependencies = [Core, Desktop]
         self.autoundo_action = 'check'
 
 
@@ -126,84 +167,72 @@ class Bin(Package):
 #
 
 
-@register_package('all', CHECK_ALLOWED)
-def check_compatibility():
-    from utils_ubuntu import is_ubuntu
-
-    if not is_ubuntu():
-        print
-        print_langblock('requires_ubuntu')
-        print
-        print_langblock('see_url')
-        return 1
-
-
-@register_package('tmp', INSTALL)
+@register_package('tmp', INSTALL())
 def prepare_tmp():
     print_lang('preparing')
-    do_command('mkdir', '-p', TMP_DIR)
+    do_command('mkdir', '-p', TMP_DIR())
 
 
 def prepare_dest():
     from utils_io import writefile
 
-    do_command('mkdir', '-p', INSTALL_APPS_DIR)
-    writefile(TMP_DIRECTORY_INFO_FILE, TMP_DIRECTORY_INFO_CONTENTS)
-    do_command('rm', '-rf', PKG_NAME, PKG_DIR)
+    do_command('mkdir', '-p', INSTALL_APPS_DIR())
+    writefile(TMP_DIRECTORY_INFO_FILE(), TMP_DIRECTORY_INFO_CONTENTS())
+    do_command('rm', '-rf', PKG_NAME(), PKG_DIR())
 
 
-@register_package('core', CHECK_INSTALLED)
+@register_package('core', CHECK_INSTALLED())
 def check_existing_install():
     from os.path import exists
-    exists(INSTALL_SUBL_DIR)
+    exists(INSTALL_SUBL_DIR())
 
 
 
 
     # print_lang('cleaning_up')
     chdir('..')
-    do_command('rm', '-rf', TMP_DIR)
+    do_command('rm', '-rf', TMP_DIR())
     # print_langblock('cleaned_up')
 
-    if exists(BASHRC_FILE) and BASHRC_CONTENTS in readfile(BASHRC_FILE):
+    if exists(BASHRC_FILE()) and BASHRC_CONTENTS() in readfile(BASHRC_FILE()):
         print_langblock('cmd_already_installed')
     elif user_yn('cmd_install'):
-        appendfile(BASHRC_FILE, '\n' + BASHRC_CONTENTS)
+        appendfile(BASHRC_FILE(), '\n' + BASHRC_CONTENTS())
         print_langblock('cmd_caveats')
 
 
 def check_in_launcher():
     from utils_ubuntu import app_is_in_launcher
 
-    return app_is_in_launcher(DESKTOP_NAME)
+    return app_is_in_launcher(DESKTOP_NAME())
 
 
 def add_to_launcher():
 
     isdefault = True
-    for mimetype in MIME_TYPES:
-        if pipe('xdg-mime', 'query', 'default', mimetype).strip() != DESKTOP_NAME:
+    for mimetype in MIME_TYPES():
+        if pipe('xdg-mime', 'query', 'default', mimetype).strip() != DESKTOP_NAME():
             isdefault = False
             break
     if isdefault:
         print_langblock('mime_already_installed')
     elif user_yn('mime_install'):
-        for mimetype in MIME_TYPES:
-            do_command('xdg-mime', 'default', DESKTOP_NAME, mimetype)
+        for mimetype in MIME_TYPES():
+            do_command('xdg-mime', 'default', DESKTOP_NAME(), mimetype)
 
 
     launcher_items = pipe('gsettings', 'get', 'com.canonical.Unity.Launcher', 'favorites')
     launcher_items = literal_eval(launcher_items)
     # print launcher_items
-    subl_item = DESKTOP_NAME
+    subl_item = DESKTOP_NAME()
     if subl_item not in launcher_items:
         launcher_items.append(subl_item)
     # print launcher_items
     do_command('gsettings', 'set', 'com.canonical.Unity.Launcher', 'favorites', repr(launcher_items))
 
-    # if [ -n "$DISPLAY" ]; then
+    # if [ -n "$DISPLAY()" ]; then
     #   print -e 'Opening Sublime Text...'
-    #   $EXEC_FILE &
+    #   $EXEC_FILE() &
 
 
 for package in packages.values():

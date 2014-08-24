@@ -39,6 +39,8 @@ line_template: |
 
 common:
   tmp_dir: /tmp/install_sublime_tmp
+  tmp_pkg: $(tmp_dir)/$(pkg_name)
+  tmp_pkg_dir: $(tmp_dir)/$(pkg_dir)
   tmp_directory_info_file: README
   tmp_directory_info_contents: >
     This directory is used by the Sublime Text installer. You can delete this when it's finished installing.
@@ -73,7 +75,7 @@ common:
     - text/x-sql
 
   desktop_name: "sublime-text-$(major_version).desktop"
-  desktop_file: $(install_apps_dir) $(desktop_name)
+  desktop_file: $(install_apps_dir)/$(desktop_name)
   desktop_contents: |
     #!/usr/bin/env xdg-open
     #
