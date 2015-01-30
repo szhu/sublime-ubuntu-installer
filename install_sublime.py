@@ -56,8 +56,8 @@ class Strings(object):
 	tmp_directory_info = "This directory is used by the Sublime install script. You can delete this when it's finished installing."
 	tmp_directory_info_file = "README"
 
-	pkg_url = 'http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3059_x64.tar.bz2'
-	pkg_name = 'sublime_text_3_build_3059_x64.tar.bz2'
+	pkg_url = 'http://c758482.r82.cf2.rackcdn.com/sublime_text_3_build_3065_x64.tar.bz2'
+	pkg_name = 'sublime_text_3_build_3065_x64.tar.bz2'
 	pkg_dir = 'sublime_text_3'
 
 	install_subl_dir = '~/.local/share/sublime-text-3'
